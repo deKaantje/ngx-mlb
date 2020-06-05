@@ -6,11 +6,13 @@
         "start": "ng serve",
         "build": "ng build",
         "test": "ng test",
-        "library:link": "npm link ./dist/ngx-library-builder --force",
         "library:build": "npm-run-all library:build:**",
-        "library:build:tsc": "tsc projects/ngx-library-builder/src/lib/index.ts --outDir dist/ngx-library-builder/lib",
-        "library:build:copy-manifest": "copyfiles -u 2 projects/ngx-library-builder/package.json dist/ngx-library-builder",
-        "library:build:copy-docs": "copyfiles -u 2 projects/ngx-library-builder/*.md dist/ngx-library-builder"
+        "library:build:clean": "rimraf dist/ngx-mlb",
+        "library:build:tsc": "tsc src/lib/index.ts --outDir dist/ngx-mlb/lib",
+        "library:build:minify": "uglifyjs-folder dist/ngx-mlb/lib/ --each --extension .js --output dist/ngx-mlb/lib/",
+        "library:build:copy-manifest": "copyfiles -u 1 src/package.json dist/ngx-mlb",
+        "library:build:copy-docs": "copyfiles -u 1 src/*.md dist/ngx-mlb",
+        "library:build:link": "npm link ./dist/ngx-mlb --force"
     },
     "private": true,
     "dependencies": {
@@ -54,6 +56,7 @@
         "ts-node": "~8.3.0",
         "tslint": "~6.1.0",
         "typescript": "~3.8.3",
+        "uglifyjs-folder": "^1.5.4",
         "yargs": "^15.3.1"
     }
 }

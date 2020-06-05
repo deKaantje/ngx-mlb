@@ -15,6 +15,6 @@
     },
     "main": "./lib/index.js",
     "bin": {
-        "ngx-library-builder": "./lib/index.js"
+        "ngx-mlb": "./lib/index.js"
     }
 }
