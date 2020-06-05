@@ -1,0 +1,20 @@
+{
+    "name": "ngx-mlb",
+    "description": "An Angular (8+) monorepo library builder. Builds Angular libraries and their dependent monorepo libraries in a single run.",
+    "files": [
+        "lib",
+        "README.md",
+        "CHANGELOG.md"
+    ],
+    "version": "0.0.1",
+    "dependencies": {
+        "tslib": "^1.10.0",
+        "async": "^3.2.0",
+        "fs-extra": "9.0.1",
+        "yargs": "^15.3.1"
+    },
+    "main": "./lib/index.js",
+    "bin": {
+        "ngx-library-builder": "./lib/index.js"
+    }
+}

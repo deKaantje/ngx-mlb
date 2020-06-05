@@ -1,0 +1,14 @@
+{
+    "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+    "dest": "../../dist/ngx-library-builder",
+    "lib": {
+        "entryFile": "src/public-api.ts",
+        "umdModuleIds": {
+            "async": "async",
+            "child_process": "child_process",
+            "fs-extra": "fsExtra",
+            "yargs": "yargs"
+        }
+    },
+    "whitelistedNonPeerDependencies": ["tslib", "async", "fs-extra", "yargs"]
+}

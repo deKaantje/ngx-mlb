@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist/ngx-library-builder",
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
@@ -14,7 +14,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-library-builder": [
+        "dist/ngx-library-builder/ngx-library-builder",
+        "dist/ngx-library-builder"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
