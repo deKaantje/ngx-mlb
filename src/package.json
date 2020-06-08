@@ -13,6 +13,7 @@
         "type": "git",
         "url": "https://github.com/deKaantje/ngx-mlb"
     },
+    "license": "GNU",
     "dependencies": {
         "tslib": "^1.10.0",
         "async": "^3.2.0",
