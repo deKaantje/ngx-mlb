@@ -5,6 +5,7 @@
         "type": "git",
         "url": "https://github.com/deKaantje/ngx-mlb"
     },
+    "license": "GNU",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -15,7 +16,7 @@
         "library:build:tsc": "tsc src/lib/index.ts --outDir dist/ngx-mlb/lib",
         "library:build:minify": "uglifyjs-folder dist/ngx-mlb/lib/ --each --extension .js --output dist/ngx-mlb/lib/",
         "library:build:copy-manifest": "copyfiles -u 1 src/package.json dist/ngx-mlb",
-        "library:build:copy-docs": "copyfiles -u 1 src/*.md dist/ngx-mlb",
+        "library:build:copy-docs": "copyfiles *.md dist/ngx-mlb",
         "library:link": "npm link ./dist/ngx-mlb --force",
         "library:publish": "cd dist/ngx-mlb && npm publish"
 
