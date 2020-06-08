@@ -1,6 +1,6 @@
 {
     "name": "ngx-mlb",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "An Angular (8+) monorepo library builder. Builds Angular libraries and their dependent monorepo libraries in a single run.",
     "files": [
         "lib",
