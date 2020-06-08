@@ -16,7 +16,9 @@
         "library:build:minify": "uglifyjs-folder dist/ngx-mlb/lib/ --each --extension .js --output dist/ngx-mlb/lib/",
         "library:build:copy-manifest": "copyfiles -u 1 src/package.json dist/ngx-mlb",
         "library:build:copy-docs": "copyfiles -u 1 src/*.md dist/ngx-mlb",
-        "library:build:link": "npm link ./dist/ngx-mlb --force"
+        "library:link": "npm link ./dist/ngx-mlb --force",
+        "library:publish": "cd dist/ngx-mlb && npm publish"
+
     },
     "private": true,
     "dependencies": {
