@@ -3,6 +3,46 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
+        "my-library1": {
+            "projectType": "library",
+            "root": "projects/my-library1",
+            "sourceRoot": "projects/my-library1/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/my-library1/tsconfig.lib.json",
+                        "project": "projects/my-library1/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/my-library1/tsconfig.lib.prod.json"
+                        }
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/my-library1/src/test.ts",
+                        "tsConfig": "projects/my-library1/tsconfig.spec.json",
+                        "karmaConfig": "projects/my-library1/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/my-library1/tsconfig.lib.json",
+                            "projects/my-library1/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
+        }
     },
-    "defaultProject": ""
+    "defaultProject": "my-library1"
 }

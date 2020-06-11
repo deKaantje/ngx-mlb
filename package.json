@@ -18,8 +18,8 @@
         "library:build:copy-manifest": "copyfiles -u 1 src/package.json dist/ngx-mlb",
         "library:build:copy-docs": "copyfiles *.md dist/ngx-mlb",
         "library:link": "npm link ./dist/ngx-mlb --force",
-        "library:publish": "cd dist/ngx-mlb && npm publish"
-
+        "library:publish": "cd dist/ngx-mlb && npm publish",
+        "test:build:library": "node dist/ngx-mlb/lib/index --libraries libraries.json --library my-library1"
     },
     "private": true,
     "dependencies": {

@@ -19,6 +19,10 @@
       "ngx-library-builder": [
         "dist/ngx-library-builder/ngx-library-builder",
         "dist/ngx-library-builder"
+      ],
+      "my-library1": [
+        "dist/my-library1/my-library1",
+        "dist/my-library1"
       ]
     }
   },

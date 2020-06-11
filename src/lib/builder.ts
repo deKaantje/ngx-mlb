@@ -30,9 +30,9 @@ export class Builder {
             } else {
                 const ng = () => spawn(this.command('ng'), ['build', library], { stdio: 'inherit' });
                 const npm = () =>
-                    spawn(this.command('npm'), ['run postbuild'], {
+                    spawn(this.command('npm'), ['run','postbuild', '--if-present'], {
                         stdio: 'inherit',
-                        cwd: `./projects/${library}`,
+                        cwd: `projects/${library}`,
                     });
                 const queue = [ng, npm];
 
