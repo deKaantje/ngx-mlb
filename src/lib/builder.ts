@@ -1,5 +1,5 @@
 import { series } from 'async';
-import { spawn } from 'child_process';
+import { spawn, ChildProcess } from 'child_process';
 import { Graph } from './dependency-graph';
 
 export class Builder {
@@ -22,19 +22,32 @@ export class Builder {
         this.processQueue = [...this.processQueue, ...processes, this.spawnProcess(library)];
     }
 
-    private spawnProcess(params: string): (cb) => void {
+    private spawnProcess(library: string): (cb: any) => void {
         return (cb) => {
-            if (this.didBuild(params)) {
-                this.warning(`Skipping build of '${params}'; package was already built.`);
+            if (this.didBuild(library)) {
+                this.warning(`Skipping build of '${library}'; package was already built.`);
                 cb();
             } else {
-                const npm = spawn(this.command(), ['build', params], { stdio: 'inherit' });
-                npm.addListener('exit', () => {
-                    this.haveBuilt(params);
+                const ng = () => spawn(this.command('ng'), ['build', library], { stdio: 'inherit' });
+                const npm = () =>
+                    spawn(this.command('npm'), ['run postbuild'], {
+                        stdio: 'inherit',
+                        cwd: `./projects/${library}`,
+                    });
+                const queue = [ng, npm];
+
+                this.processSpawnQueue(queue, () => {
+                    this.haveBuilt(library);
                     cb();
                 });
             }
         };
+    }
+
+    private processSpawnQueue(queue: (() => ChildProcess)[], cb: any, index: number = 0) {
+        index < queue.length
+            ? queue[index]().addListener('exit', () => this.processSpawnQueue(queue, cb, ++index))
+            : cb();
     }
 
     public build() {
@@ -45,12 +58,12 @@ export class Builder {
         });
     }
 
-    private command() {
-        return process.platform === 'win32' ? 'ng.cmd' : 'ng';
+    private command(command: string) {
+        return process.platform === 'win32' ? `${command}.cmd` : command;
     }
 
-    private haveBuilt(library: string) {
-        this.builtList.push(library);
+    private haveBuilt(library: string): number {
+        return this.builtList.push(library);
     }
     private didBuild(library: string): boolean {
         return this.builtList.some((build) => build === library);
