@@ -21,7 +21,15 @@ const all: yargs.Options = {
     type: 'boolean',
 };
 
+const incremental: yargs.Options = {
+    alias: 'i',
+    default: false,
+    describe: 'Incremental build: skip build of dependencies.',
+    type: 'boolean',
+};
+
 export const args: any = yargs
     .option('libraries', librarySource)
     .option('library', library)
+    .option('incremental', incremental)
     .option('all', all).argv;
