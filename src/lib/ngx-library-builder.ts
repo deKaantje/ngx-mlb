@@ -29,6 +29,8 @@ export class NgxLibraryBuilder {
             for (const [key] of this.libraries) {
                 this.builder.queue(key);
             }
+        } else if (args.incremental) {
+            this.builder.single(args.library);
         } else {
             this.builder.queue(args.library);
         }

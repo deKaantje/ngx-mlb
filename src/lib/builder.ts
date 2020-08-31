@@ -7,7 +7,9 @@ export class Builder {
     private builtList = [];
     private processQueue = [];
 
-    constructor(private graph: Graph) {}
+    constructor(private graph: Graph) {
+        this.log('Builder v3.1');
+    }
 
     public queue(library: string): void {
         if (!library) {
@@ -22,6 +24,10 @@ export class Builder {
         this.processQueue = [...this.processQueue, ...processes, this.spawnProcess(library)];
     }
 
+    public single(library: string) {
+        this.processQueue = [...this.processQueue, this.spawnProcess(library)];
+    }
+
     private spawnProcess(library: string): (cb: any) => void {
         return (cb) => {
             if (this.didBuild(library)) {
@@ -30,7 +36,7 @@ export class Builder {
             } else {
                 const ng = () => spawn(this.command('ng'), ['build', library], { stdio: 'inherit' });
                 const npm = () =>
-                    spawn(this.command('npm'), ['run','postbuild', '--if-present'], {
+                    spawn(this.command('npm'), ['run', 'postbuild', '--if-present'], {
                         stdio: 'inherit',
                         cwd: `projects/${library}`,
                     });
@@ -45,9 +51,19 @@ export class Builder {
     }
 
     private processSpawnQueue(queue: (() => ChildProcess)[], cb: any, index: number = 0) {
-        index < queue.length
-            ? queue[index]().addListener('exit', () => this.processSpawnQueue(queue, cb, ++index))
-            : cb();
+        if (index < queue.length) {
+            const child: ChildProcess = queue[index]();
+            child.addListener('exit', (code) => {
+                if (code === 0) {
+                    this.processSpawnQueue(queue, cb, ++index);
+                } else {
+                    this.error(`Process exited with code ${code}`);
+                    setTimeout(() => process.exit(code));
+                }
+            });
+        } else {
+            cb();
+        }
     }
 
     public build() {
@@ -70,14 +86,14 @@ export class Builder {
     }
 
     private error(message: string): void {
-        console.error('\n\x1b[31m%s\x1b[0m', `[Priva Dependency Graph] ${message}`);
+        console.error('\n\x1b[31m%s\x1b[0m', `[Monorepo Library Builder][Builder] ${message}`);
     }
     private warning(message: string): void {
-        console.log('\n\x1b[33m%s\x1b[0m', `[Priva Dependency Builder] ${message}`);
+        console.log('\n\x1b[33m%s\x1b[0m', `[Monorepo Library Builder][Builder] ${message}`);
     }
     private log(message: string): void {
         if (this.debug) {
-            console.log(`[Priva Dependency Builder] ${message}`);
+            console.log(`[Monorepo Library Builder][Builder] ${message}`);
         }
     }
 }

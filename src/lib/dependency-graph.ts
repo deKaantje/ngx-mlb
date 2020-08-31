@@ -29,14 +29,14 @@ export class Graph {
     }
 
     private error(message: string) {
-        console.error('\x1b[31m%s\x1b[0m', `[Priva Dependency Graph] ${message}`);
+        console.error('\x1b[31m%s\x1b[0m', `[Monorepo Library Builder][Dependency Graph] ${message}`);
     }
     private warning(message: string) {
-        console.log('\x1b[33m%s\x1b[0m', `[Priva Dependency Builder] ${message}`);
+        console.log('\x1b[33m%s\x1b[0m', `[Monorepo Library Builder][Dependency Graph] ${message}`);
     }
     private log(message: string) {
         if (this.debug) {
-            console.log('\x1b[34m%s\x1b[0m', `[Priva Dependency Graph] ${message}`);
+            console.log('\x1b[34m%s\x1b[0m', `[Monorepo Library Builder][Dependency Graph] ${message}`);
         }
     }
 }
